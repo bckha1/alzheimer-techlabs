@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import accuracy_score,confusion_matrix
-import io
+import pickle
 
 
 def load_model():
