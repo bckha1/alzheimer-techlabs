@@ -19,7 +19,6 @@ def data_reader():
     # following lines create boxes in which user can enter data required to make prediction 
     MMSE = st.number_input('MMSE')
     CDR = st.number_input("CDR") 
-    
     return(MMSE,CDR)
     
 def result(MMSE,CDR):
@@ -28,7 +27,7 @@ def result(MMSE,CDR):
         prediction = model.predict([[MMSE,CDR]])
         # Making predictions 
         prediction1 = model.predict_proba([[MMSE,CDR]])
-        pred="The proba of developing dementia for this patient is: "+prediction1
+        pred="The proba of developing dementia for this patient is: "+prediction1[0][1]
         return pred
 
 
@@ -37,6 +36,6 @@ def main():
        # when 'Predict' is clicked, make the prediction and store it 
        if st.button("Predict"): 
            pred = result(MMSE,CDR)
-           st.success(pred)
+           st.write(pred)
    
 main()
