@@ -31,11 +31,11 @@ def data_reader():
 def result(MMSE,CDR):
     if st.button('Run model'):
          # Making predictions 
-    prediction = model.predict([[MMSE,CDR]])
-    # Making predictions 
-    prediction1 = model.predict_proba([[MMSE,CDR]])
-    pred="The proba of developing dementia for this patient is: "+prediction1
-    return pred
+        prediction = model.predict([[MMSE,CDR]])
+        # Making predictions 
+        prediction1 = model.predict_proba([[MMSE,CDR]])
+        pred="The proba of developing dementia for this patient is: "+prediction1
+        return pred
 
 
 def main():
