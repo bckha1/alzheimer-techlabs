@@ -22,9 +22,6 @@ def data_reader():
     
     return(MMSE,CDR)
     
-      
-   
-   
 def result(MMSE,CDR):
     if st.button('Run model'):
          # Making predictions 
@@ -39,8 +36,7 @@ def main():
        MMSE,CDR=data_reader()
        # when 'Predict' is clicked, make the prediction and store it 
        if st.button("Predict"): 
-           result = result(MMSE,CDR)
-           result =""
-           st.success('The answer is {}'.format(result))
+           pred = result(MMSE,CDR)
+           st.success(pred)
    
 main()
