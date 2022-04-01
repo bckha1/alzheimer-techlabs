@@ -11,7 +11,8 @@ import io
 
 def load_model():
     # load the model from disk
-    model = pickle.load(open("finalized_random-forest.pkl", 'rb'))
+    pickled_in=open("finalized_random-forest.pkl", 'rb')
+    model = pickle.load(pickled_in)
     return(model)
 
 
