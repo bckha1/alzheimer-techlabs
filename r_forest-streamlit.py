@@ -9,98 +9,41 @@ from sklearn.metrics import accuracy_score,confusion_matrix
 import io
 
 
-def data_reader(data_path):
-    data=pd.read_csv(data_path)
-    data.dropna(inplace=True)
-
-    # replacing values
-    data['Group'].replace(['Nondemented', 'Demented'],[0, 1], inplace=True)
-    data['M/F'].replace(['M', 'F'],[0, 1], inplace=True)
-    data=data.drop(data[data["Group"]=="Converted"].index)
-    return(data)
-
-def features(data):
-    if st.button('Data info'):
-        st.header("Data info")
-        buffer = io.StringIO()
-        data.info(buf=buffer)
-        s = buffer.getvalue()
-        st.text(s)
-    ## split train / test
-    cols=list(data.columns)
-    x_train,x_test,y_train,y_test = train_test_split(data[cols[1:]],data[cols[0:1]], train_size=0.8, test_size=0.2, shuffle=False)
-
-    y_train=y_train.astype('int')
-    y_test=y_test.astype('int')
-
-    y_train=list(y_train["Group"])
-    y_test=list(y_test["Group"])
-
-    model=RandomForestClassifier()
-    model.fit(x_train,y_train)
-
-    feature_imp = pd.Series(model.feature_importances_,index=cols[1:]).sort_values(ascending=False)
-
-    if st.button('Show most important features'):
-        # Creating a bar plot
-        c=plt.figure(figsize=(15,15))
-
-        sns.barplot(x=feature_imp, y=feature_imp.index)
-        # Add labels to your graph
-        plt.xlabel('Feature Importance Score')
-        plt.ylabel('Features')
-        plt.title("Importantance of Features")
-        plt.legend()
-
-        st.header("Significant features")
-        st.pyplot(c)    
-        st.write("The most important features are MMSE and CDR")
+def load_model():
+    # load the model from disk
+    model = pickle.load(open("finalized_random-forest.sav", 'rb'))
+    return(model)
 
 
-    corr = data.corr()
-
-    if st.button('Show features correlation matrix'):
-        c1=plt.figure(figsize=(14,8))
-        sns.heatmap(corr,cmap="Blues",annot=True,xticklabels=corr.columns,yticklabels=corr.columns)
-        st.header("Heatmap")
-        st.pyplot(c1)
-
-def training(data):
-    ## split train / test
-    cols=list(data.columns)
-    x_train,x_test,y_train,y_test = train_test_split(data[["MMSE","CDR"]],data[cols[0:1]], train_size=0.8, test_size=0.2, shuffle=False)
+def data_reader():
+     # display the front end aspect
+    st.markdown(html_temp, unsafe_allow_html = True) 
+      
+    # following lines create boxes in which user can enter data required to make prediction 
+    MMSE = st.number_input('MMSE')
+    CDR = st.number_input("CDR") 
     
-    y_train=y_train.astype('int')
-    y_test=y_test.astype('int')
+    return(MMSE,CDR)
     
-    y_train=list(y_train["Group"])
-    y_test=list(y_test["Group"])
-
+      
+   
+   
+def result(MMSE,CDR):
     if st.button('Run model'):
-        model=RandomForestClassifier()
-        model.fit(x_train,y_train)
-        y_pred=model.predict(x_test)
+         # Making predictions 
+    prediction = model.predict([[MMSE,CDR]])
+    # Making predictions 
+    prediction1 = model.predict_proba([[MMSE,CDR]])
+    pred="The proba of developing dementia for this patient is: "+prediction1
+    return pred
 
 
-        score=accuracy_score(y_pred,y_test)
-        mat=confusion_matrix(y_pred,y_test)
-
-        st.header("Accuracy score")
-        st.text(score)
-        st.header("Confusion matrix")
-        st.write(mat)
-
-
-def main(data_path):
-    if data_path is None:
-        st.warning("Please upload a csv file")
-    else:
-        data=data_reader(data_path)
-        features(data)
-        training(data)
-    
-    
-
-data_path=st.file_uploader("Please upload data", type=["csv"])
-#data_path = Path(__file__).parents[1] /"alzheimer.csv"
-main(data_path)
+def main():
+       MMSE,CDR=data_reader()
+       # when 'Predict' is clicked, make the prediction and store it 
+       if st.button("Predict"): 
+           result = result(MMSE,CDR)
+           result =""
+           st.success('The answer is {}'.format(result))
+   
+main()
