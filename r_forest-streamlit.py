@@ -27,7 +27,7 @@ def result(MMSE,CDR):
     prediction = model.predict([[MMSE,CDR]])
     # Making predictions 
     prediction1 = model.predict_proba([[MMSE,CDR]])
-    pred="The proba of developing dementia for this patient is: "+prediction1[0][1]
+    pred="The proba of developing dementia for this patient is: "+str(prediction1[0][1])
     return pred
 
 
