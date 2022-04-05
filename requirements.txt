@@ -10,4 +10,3 @@ opencv-python
 six==1.15.0
 keras==2.0.8
 typing-extensions==3.7.4.3
-tensorflow.contrib
