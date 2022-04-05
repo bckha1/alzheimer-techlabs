@@ -1,5 +1,5 @@
 matplotlib==3.3.4
-numpy
+numpy==1.19.2
 pandas==1.2.4
 scikit_learn==1.0.2
 seaborn==0.11.1
@@ -9,3 +9,5 @@ tqdm==4.59.0
 opencv-python
 keras
 keras_nightly==2.5.0.dev2021032900
+six==1.15.0
+typing-extensions==3.7.4
