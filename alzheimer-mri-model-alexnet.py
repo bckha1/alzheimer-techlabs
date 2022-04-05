@@ -1,6 +1,7 @@
 import cv2
 import streamlit as st
-from keras.models import load_model
+from tensorflow import keras.model as km
+#from keras.models import load_model
 
 
 st.header("Alzheimer's Disease Prediction")
@@ -8,7 +9,7 @@ st.subheader("Predicts the diagnosis of Alzheimer's disease based on the patient
 st.write("This application uses AlexNet")
 
 
-model = load_model('finalized-alexnet.h5')
+model = km.load_model('finalized-alexnet.h5')
 
 file = st.file_uploader("Please upload an mri image.", type=["jpg", "png"])
 
