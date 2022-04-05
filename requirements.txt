@@ -6,6 +6,6 @@ seaborn==0.11.1
 shap==0.40.0
 tensorflow==2.5.0
 tqdm==4.59.0
-opencv-python-headless
+opencv-python
 kera
 keras_nightly==2.5.0.dev2021032900
