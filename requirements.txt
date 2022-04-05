@@ -4,8 +4,8 @@ pandas==1.2.4
 scikit_learn==1.0.2
 seaborn==0.11.1
 shap==0.40.0
-tensorflow==2.5.0
+tensorflow
 tqdm==4.59.0
 opencv-python-headless
-keras==2.8.0
+kera
 keras_nightly==2.5.0.dev2021032900
