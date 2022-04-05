@@ -7,7 +7,6 @@ shap==0.40.0
 tensorflow==2.5.0
 tqdm==4.59.0
 opencv-python
-keras
 keras_nightly==2.5.0.dev2021032900
 six==1.15.0
 typing-extensions==3.7.4.3
