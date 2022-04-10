@@ -1,1 +1,5 @@
-click==8
+matplotlib==3.3.4
+numpy
+pandas==1.2.4
+scikit_learn==1.0.2
+seaborn==0.11.1
